@@ -8,11 +8,11 @@ services:
     environment:
         ACCEPT_EULA: Y
         SA_PASSWORD: 2astazeY
-        MSSQL_DB: Northwind #Custom Image Environment Variable
+        #MSSQL_DB: Northwind #Custom Image Environment Variable
         MSSQL_USER: directus_db_user #Custom Image Environment Variable
         MSSQL_PASSWORD: directus_db_p@ssw0rd #Custom Image Environment Variable
     ports:
-        - 1434:1434 
+        - 1434:1433 
     healthcheck:
         test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U $$MSSQL_USER -P $$MSSQL_PASSWORD -Q 'SELECT 1' || exit 1"]
         interval: 10s
@@ -26,9 +26,9 @@ services:
     ports:
       - 8055:8055
     depends_on:
-        - sqlserverdirectus
-        #sqlserverdirectus:
-          #condition: service_healthy
+        #- sqlserverdirectus
+        sqlserverdirectus:
+          condition: service_healthy
     environment:
       KEY: '255d861b-5ea1-5996-9aa3-922530ec40b1'
       SECRET: '6116487b-cda1-52c2-b5b5-c8022c45e263'
@@ -36,7 +36,7 @@ services:
       DB_CLIENT: 'mssql' #DB Client Type you can use other type of clients
       DB_HOST: 'host.docker.internal' # host name of the DB container, using host.docker.internal, you can use container name
       DB_PORT: '1434' #port on which DB Container is listening
-      DB_DATABASE: 'Northwind' #Database name
+      #DB_DATABASE: 'Northwind' #Database name
       DB_USER: 'directus_db_user' #Newly created Database User
       DB_PASSWORD: 'directus_db_p@ssw0rd' #Newly Created database password
 
