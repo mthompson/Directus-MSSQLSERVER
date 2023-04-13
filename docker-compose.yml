@@ -26,7 +26,8 @@ services:
     ports:
       - 8055:8055
     depends_on:
-        sqlserverdirectus:
+        sqlserverdirectus
+        #sqlserverdirectus:
           #condition: service_healthy
     environment:
       KEY: '255d861b-5ea1-5996-9aa3-922530ec40b1'
